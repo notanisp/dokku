@@ -37,8 +37,8 @@ case "$1" in
     ;;
   help)
    cat && cat<<EOF
-vhost [app] [hostname] Set the canonical vhost for an application
-vhost:rm [app] Remove the non-default vhost for an application
+    vhost [app] [hostname] Set the canonical vhost for an application
+    vhost:rm [app] Remove the non-default vhost for an application
 EOF
     ;;
 esac
