@@ -19,10 +19,26 @@ case "$1" in
       exit 2
     fi
     echo -n "$HOST" > $DOKKU_ROOT/$APP/VHOST
+    pluginhook post-deploy $APP
+    ;;
+   vhost:rm)
+    APP=$2
+    if [ "$APP" == "" ]; then
+      echo "Need app and vhost arguments"
+      exit 2
+    fi
+    APP_PATH=$DOKKU_ROOT/$APP
+    if [ ! -d "$APP_PATH" ]; then
+      echo "App $APP does not exist"
+      exit 2
+    fi
+    rm -f $DOKKU_ROOT/$APP/VHOST
+    pluginhook post-deploy $APP
     ;;
   help)
    cat && cat<<EOF
 vhost [app] [hostname] Set the canonical vhost for an application
+vhost:rm [app] Remove the non-default vhost for an application
 EOF
     ;;
 esac
