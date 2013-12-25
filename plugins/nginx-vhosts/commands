@@ -2,8 +2,28 @@
 set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
 
 case "$1" in
+  vhost)
+    APP=$2
+    HOST=$3
+    if [ "$APP" == "" ]; then
+      echo "Need app and vhost arguments"
+      exit 2
+    fi
+    if [ "$HOST" == "" ]; then
+      echo "Need app and vhost arguments"
+      exit 2
+    fi
+    APP_PATH=$DOKKU_ROOT/$APP
+    if [ ! -d "$APP_PATH" ]; then
+      echo "App $APP does not exist"
+      exit 2
+    fi
+    echo -n "$HOST" > $DOKKU_ROOT/$APP/VHOST
+    ;;
   help)
-    cat
+   cat && cat<<EOF
+vhost [app] [hostname] Set the canonical vhost for an application
+EOF
     ;;
 esac
 
