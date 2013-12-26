@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
-[[ -n $1 ]] && rm -r "/home/git/repositories/apps/${1}.git" > /dev/null
